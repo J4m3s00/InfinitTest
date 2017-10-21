@@ -16,6 +16,7 @@ namespace in { namespace core {
 
 	void CanvasItem::OnUpdate()
 	{
+		printf(Input::GetTypedText().c_str());
 		int mouseX = Input::GetMouseX();
 		int mouseY = Input::GetMouseY();
 
@@ -32,6 +33,17 @@ namespace in { namespace core {
 				}
 				m_MouseOver = true;
 			}
+			else
+			{
+				if (m_MouseOver)
+				{
+					for (INUint i = 0; i < m_MouseLeaveCallbacks.size(); i++)
+					{
+						m_MouseLeaveCallbacks[i]();
+					}
+				}
+				m_MouseOver = false;
+			}
 		}
 		else
 		{
@@ -47,9 +59,12 @@ namespace in { namespace core {
 		if (m_MouseOver && Input::IsMousePressed(0))
 		{
 			m_Pushed = true;
+			m_Selected = true;
 			m_LastDraggedX = mouseX;
 			m_LastDraggedY = mouseY;
 		}
+		else if (!m_MouseOver && Input::IsMousePressed(0))
+			m_Selected = false;
 		if (m_Pushed && m_MouseOver && !Input::IsMouseDown(0))
 		{
 			m_Pushed = false;

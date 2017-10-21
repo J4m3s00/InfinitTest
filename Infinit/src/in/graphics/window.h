@@ -36,6 +36,7 @@ namespace in { namespace graphics {
 		friend static void mouse_button_callback(GLFWwindow* window, INInt button, INInt action, INInt mods);
 		friend static void mouse_pos_callback(GLFWwindow* window, double xPos, double yPos);
 		friend static void scroll_callback(GLFWwindow* window, double xOffset, double yOffset);
+		friend static void text_input(GLFWwindow* window, INUint codePoint, int mods);
 	};
 
 } }

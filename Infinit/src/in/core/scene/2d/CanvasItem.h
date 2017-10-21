@@ -25,6 +25,7 @@ namespace in { namespace core {
 		vector<DraggedCallback> m_DraggedCallbacks;
 		bool m_MouseOver;
 		bool m_Pushed;
+		bool m_Selected;
 	private:
 		float m_LastDraggedX;
 		float m_LastDraggedY;

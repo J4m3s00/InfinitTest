@@ -9,6 +9,8 @@
 
 namespace in { 
 	
+	INString Input::m_TypedText;
+
 	bool Input::m_ButtonsPressed[INPUT_MAX_BUTTONS];
 	bool Input::m_ButtonsRepeated[INPUT_MAX_BUTTONS];
 	bool Input::m_ButtonsReleased[INPUT_MAX_BUTTONS];
@@ -78,4 +80,23 @@ namespace in {
 		return -((m_MouseY / (float) graphics::Window::GetHeight()) * (float) height - (height / 2.0f));
 	}
 
+	void Input::SetTypedText(const INString& text)
+	{
+		m_TypedText = text;
+	}
+
+	void Input::AppendTypedText(const INString& text)
+	{
+		m_TypedText.append(text);
+	}
+
+	void Input::AppendTypedText(const char* string)
+	{
+		m_TypedText.append(string);
+	}
+
+	void Input::AppendTypedText(char c)
+	{
+		m_TypedText.append(&c);
+	}
 }

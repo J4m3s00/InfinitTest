@@ -18,6 +18,8 @@ namespace in { namespace graphics {
 		Label(const maths::vec2& position, const INString& text, Font* font);
 		virtual void Draw(Renderer2D& renderer);
 
+		void SetText(const INString& text) { m_Text = text; }
+
 		void SetHorizontalTextAlignment(HORIZONTAL_TEXT_ALIGNMENT alignment) { m_HorizontalTextAlignment = alignment; }
 		void SetVerticalTextAlignment(VERTICAL_TEXT_ALIGNMENT alignment) { m_VerticalTextAlignment = alignment; }
 

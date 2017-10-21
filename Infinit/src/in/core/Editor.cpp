@@ -4,6 +4,7 @@
 #include <in\graphics\Font.h>
 #include <GL\glew.h>
 #include "scene\gui\Button.h"
+#include "scene\gui\TextField.h"
 
 namespace in { namespace core {
 
@@ -36,9 +37,7 @@ namespace in { namespace core {
 		Scene::SetActiveScene(scene);
 
 		//scene->AddNode(new CanvasItem("Canvas ITem", maths::vec2()));
-		scene->AddNode((new Button("Button", 0.0f, 100.0f, 150.0f, 64.0f, "Hello World"))->AddPressedCallback([]() {
-			printf("Hello World");
-		}));
+		scene->AddNode(new TextField("Text Field", 100.0f, 100.0f, 200.0f, 30.0f));
 		Run();
 	}
 

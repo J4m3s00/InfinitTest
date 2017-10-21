@@ -52,6 +52,7 @@ namespace in { namespace graphics {
 		glfwSetCursorPosCallback(m_Window, mouse_pos_callback);
 		glfwSetWindowSizeCallback(m_Window, window_resize);
 		glfwSetScrollCallback(m_Window, scroll_callback);
+		glfwSetCharModsCallback(m_Window, text_input);
 
 
 		if (glewInit() != GLEW_OK)
@@ -85,6 +86,7 @@ namespace in { namespace graphics {
 		}
 
 		Input::SetMouseWheelAmmount(0.0f);
+		Input::SetTypedText("");
 	}
 
 	void Window::Update()
@@ -142,11 +144,11 @@ namespace in { namespace graphics {
 			Input::SetMouseDown(button, true);
 			Input::SetMousePressed(button, true);
 		}
-		/*else if (action == GLFW_REPEAT)
-		{
-		infinitput::SetMouseDown(button, true);
-		infinitput::SetMousePressed(button, false);
-		}*/
+	}
+
+	void text_input(GLFWwindow* window, INUint codepoint, int mods)
+	{
+		Input::AppendTypedText(static_cast<char>(codepoint));
 	}
 
 } }

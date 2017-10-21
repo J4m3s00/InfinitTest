@@ -17,6 +17,8 @@ namespace in {
 	private:
 		static graphics::Window* m_Window;
 
+		static INString m_TypedText;
+
 		static float m_MouseWheelAmmount;
 
 		static INInt m_MouseX;
@@ -38,6 +40,8 @@ namespace in {
 		static float GetOrthographicsMouseX(float width);
 		static float GetOrthographicsMouseY(float height);
 
+		static const INString& GetTypedText() { return m_TypedText; }
+
 		//Gettinfinitg the mouse and keyboard states
 		static bool IsKeyPressed(INUint key);
 		static bool IsKeyDown(INUint key);
@@ -49,7 +53,7 @@ namespace in {
 
 		static void SetMouseHidden(INUint cursorState);
 
-		//Settinfinitg the buttons should not happen outside the enigne
+		//setting the buttons should not happen outside the enigne
 		static void SetKeyPressed(INUint key, bool state) { m_KeysPressed[key] = state; }
 		static void SetKeyDown(INUint key, bool state) { m_KeysRepeated[key] = state; }
 
@@ -60,6 +64,12 @@ namespace in {
 		static void SetWindow(graphics::Window* window) { m_Window = window; }
 
 		static void SetMouseWheelAmmount(const float& ammt) { m_MouseWheelAmmount = ammt; }
+
+		static void SetTypedText(const INString& string);
+
+		static void AppendTypedText(const INString& string);
+		static void AppendTypedText(const char* string);
+		static void AppendTypedText(char c);
 	};
 
 }
