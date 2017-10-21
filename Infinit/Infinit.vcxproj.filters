@@ -165,6 +165,9 @@
     <ClInclude Include="src\in\graphics\renderable\Label.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\in\core\scene\gui\Button.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ext\freetype-gl\platform.c">
@@ -270,6 +273,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\in\graphics\renderable\Label.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\in\core\scene\gui\Button.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,7 +1,9 @@
 #include "Editor.h"
 
+#include "scene\2d\CanvasItem.h"
+#include <in\graphics\Font.h>
 #include <GL\glew.h>
-#include "scene\gui\BaseButton.h"
+#include "scene\gui\Button.h"
 
 namespace in { namespace core {
 
@@ -24,6 +26,8 @@ namespace in { namespace core {
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+		manager::FontManager::Add(new graphics::Font("DefaultFont", "font.ttf", 16));
+
 		graphics::Shader::FromSource("BatchRenderer",
 #include <in\graphics\shader\presets\BatchRenderer2D.shader>
 			);
@@ -31,7 +35,10 @@ namespace in { namespace core {
 		Scene* scene = new Scene("First Scene");
 		Scene::SetActiveScene(scene);
 
-		scene->AddNode(new BaseButton("FIRST ITEM", maths::vec3(0.0f, 0.0f, 0.0f), maths::vec2()));
+		//scene->AddNode(new CanvasItem("Canvas ITem", maths::vec2()));
+		scene->AddNode((new Button("Button", 0.0f, 100.0f, 150.0f, 64.0f, "Hello World"))->AddPressedCallback([]() {
+			printf("Hello World");
+		}));
 		Run();
 	}
 
@@ -54,9 +61,10 @@ namespace in { namespace core {
 			m_Window->Clear();
 
 			Update();
+			m_Window->UpdateInput();
+
 			Render();
 
-			m_Window->UpdateInput();
 			m_Window->Update();
 			m_Running = !m_Window->Closed();
 		}

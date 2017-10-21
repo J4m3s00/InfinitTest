@@ -28,7 +28,11 @@ namespace in { namespace graphics {
 
 		template <> const maths::vec3& GetColor() const { return maths::vec3(m_Red / 255.0f, m_Green / 255.0f, m_Blue / 255.0f); }
 		template <> const maths::vec4& GetColor() const { return maths::vec4(m_Red / 255.0f, m_Green / 255.0f, m_Blue / 255.0f, m_Alpha / 255.0f); }
-		template <> const INUint& GetColor() const { return INUint(m_Red << 24 | m_Green << 16 | m_Blue << 8 | m_Alpha); }
+		template <> const INUint& GetColor() const { return INUint(m_Red << 16 | m_Green << 8 | m_Blue << 0 | m_Alpha << 24); }
+
+		static const Color& CANVAS_ITEM_NORMAL;
+		static const Color& CANVAS_ITEM_HOVERED;
+		static const Color& CANVAS_ITEM_PRESSED;
 	};
 
 } }

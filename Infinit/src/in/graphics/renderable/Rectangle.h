@@ -27,6 +27,12 @@ namespace in { namespace graphics {
 		Rectangle(const maths::vec2& position, const maths::vec2& size, Texture* texture);
 
 		void Draw(Renderer2D& renderer) override;
+
+		void SetPosition(const maths::vec2& position) { m_Position = position; }
+		void SetSize(const maths::vec2& size) { m_Size = size; }
+
+		void SetColor(const Color& color) { m_Color = color; }
+		void SetTexture(Texture* texture) { m_Texture = texture; }
 	};
 
 } }

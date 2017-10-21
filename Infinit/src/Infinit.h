@@ -31,6 +31,7 @@
 
 #include <in\graphics\Texture.h>
 #include <in\graphics\shader\Shader.h>
+#include <in\graphics\Font.h>
 #include <in\graphics\Renderer2D.h>
 #include <in\graphics\BatchRenderer2D.h>
 #include <in\graphics\Color.h>

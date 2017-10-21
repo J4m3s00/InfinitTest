@@ -25,7 +25,7 @@ namespace in { namespace core {
 		void Start();
 		void Render();
 		void Update();
-	protected:
+	public:
 		virtual void OnStart() {}
 		virtual void OnRender() {}
 		virtual void OnUpdate() {}

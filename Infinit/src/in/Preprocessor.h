@@ -5,32 +5,35 @@ private:													\
 	INString m_ClassName = #className;						\
 public:														\
 	const INString& GetClassName() const { return m_ClassName; } \
-private:	\
-void Render_() {	\
-	inheritance::Render(); \
-	OnRender(); \
+public:	\
+virtual void Render_() override {	\
+	inheritance::Render_(); \
+	if (typeid(&className::OnRender) != typeid(&inheritance::OnRender)) \
+		className::OnRender(); \
 	} \
-void Start_() {	\
-	inheritance::Start(); \
-	OnStart(); \
+virtual void Start_() override {	\
+	__super::Start_(); \
+	if (typeid(&className::OnStart) != typeid(&inheritance::OnStart)) \
+	className::OnStart(); \
 	} \
-void Update_() {	\
-	inheritance::Update(); \
-	OnUpdate(); \
-	} 
+virtual void Update_() override {	\
+	__super::Update_(); \
+	if (typeid(&className::OnUpdate) != typeid(&inheritance::OnUpdate)) \
+		className::OnUpdate(); \
+	}
 
 #define INCLASS_(className)						\
 private:													\
 	INString m_ClassName = #className;						\
 public:														\
 	const INString& GetClassName() const { return m_ClassName; } \
-private:	\
-void Start_() {	\
-	OnStart(); \
+public:	\
+virtual void Start_() {	\
+	className::OnStart(); \
 	} \
-void Render_() {	\
-	OnRender(); \
+virtual void Render_() {	\
+	className::OnRender(); \
 	} \
-void Update_() {	\
-	OnUpdate(); \
+virtual void Update_() {	\
+	className::OnUpdate(); \
 	} 

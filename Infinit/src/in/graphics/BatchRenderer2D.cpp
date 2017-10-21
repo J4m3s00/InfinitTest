@@ -158,9 +158,9 @@ namespace in { namespace graphics {
 				}
 
 				float x0 = posX + glyph->offset_x / scale.x;
-				float y0 = posY + glyph->offset_y / scale.y;
+				float y0 = posY - glyph->offset_y / scale.y;
 				float x1 = x0 + glyph->width / scale.x;
-				float y1 = y0 - glyph->height / scale.y;
+				float y1 = y0 + glyph->height / scale.y;
 
 				float u0 = glyph->s0;
 				float v0 = glyph->t0;
@@ -201,6 +201,113 @@ namespace in { namespace graphics {
 	void BatchRenderer2D::DrawString(const INString& text, float x, float y, Font* font, const Color& color)
 	{
 		DrawString(text, x, y, font, color.GetColor<INUint>());
+	}
+
+	void BatchRenderer2D::DrawString(const INString& text, float x, float y, float width, float height, Font* font, INUint color, HORIZONTAL_TEXT_ALIGNMENT horizontalTextAlignment, VERTICAL_TEXT_ALIGNMENT verticalTextAlignment)
+	{
+		using namespace ftgl;
+
+		float ts = SubmitTexture(font->GetID());
+		const maths::vec2& scale = font->GetScale();
+
+		texture_font_t* ftFont = font->GetFont();
+
+		float textWidth = font->GetWidth(text);
+		float textHeight = font->GetHeight(text);
+
+		float startX = 0;
+		switch (horizontalTextAlignment)
+		{
+			case LEFT:
+				startX = x;
+				break;
+			case CENTER:
+				startX = x + ((width - textWidth) / 2);
+				break;
+			case RIGHT:
+				startX = x + (width * textWidth);
+				break;
+		}
+		float startY = 0;
+		switch (verticalTextAlignment)
+		{
+		case TOP:
+			startY = y + textHeight;
+			break;
+		case MIDDLE:
+			startY = y + height / 2 + textHeight / 2;
+			break;
+		case BOTTOM:
+			startY = y + height;
+			break;
+		}
+		float posX = startX;
+		float posY = startY;
+
+		for (INUint i = 0; i < text.length(); i++)
+		{
+			char c = text[i];
+			if (c == '\n')
+			{
+				posX = startX;
+				posY = posY - font->GetSize() / scale.y;
+				continue;
+			}
+			texture_glyph_t* glyph = texture_font_get_glyph(ftFont, c);
+			if (glyph != NULL)
+			{
+				if (i > 0)
+				{
+					float kerning = texture_glyph_get_kerning(glyph, text[i - 1]);
+					posX += kerning / scale.x;
+				}
+
+				float x0 = posX + glyph->offset_x / scale.x;
+				float y0 = posY - glyph->offset_y / scale.y;
+				float x1 = x0 + glyph->width / scale.x;
+				float y1 = y0 + glyph->height / scale.y;
+
+				float u0 = glyph->s0;
+				float v0 = glyph->t0;
+				float u1 = glyph->s1;
+				float v1 = glyph->t1;
+
+				m_Buffer->position = maths::vec3(x0, y1, 0.0f);
+				m_Buffer->uv = maths::vec2(u0, v1);
+				m_Buffer->tid = ts;
+				m_Buffer->color = color;
+				m_Buffer++;
+
+				m_Buffer->position = maths::vec3(x0, y0, 0.0f);
+				m_Buffer->uv = maths::vec2(u0, v0);
+				m_Buffer->tid = ts;
+				m_Buffer->color = color;
+				m_Buffer++;
+
+				m_Buffer->position = maths::vec3(x1, y0, 0.0f);
+				m_Buffer->uv = maths::vec2(u1, v0);
+				m_Buffer->tid = ts;
+				m_Buffer->color = color;
+				m_Buffer++;
+
+				m_Buffer->position = maths::vec3(x1, y1, 0.0f);
+				m_Buffer->uv = maths::vec2(u1, v1);
+				m_Buffer->tid = ts;
+				m_Buffer->color = color;
+				m_Buffer++;
+
+				m_IndexCount += 6;
+
+				posX += glyph->advance_x / scale.x;
+			}
+		}
+	}
+
+
+	void BatchRenderer2D::DrawString(const INString& string, float x, float y, float width, float height, Font* font, const Color& color,
+		HORIZONTAL_TEXT_ALIGNMENT horizontalTextAlignment, VERTICAL_TEXT_ALIGNMENT verticalTextAlignment)
+	{
+		DrawString(string, x, y, width, height, font, color.GetColor<INUint>(), horizontalTextAlignment, verticalTextAlignment);
 	}
 
 	void BatchRenderer2D::FillRect(float x, float y, float width, float height, INUint color)

@@ -2,6 +2,7 @@
 
 #include <in\graphics\shader\Shader.h>
 #include <in\graphics\Texture.h>
+#include <in\graphics\Font.h>
 
 namespace in { namespace manager {
 
@@ -9,10 +10,12 @@ namespace in { namespace manager {
 
 	INIT_MANAGER(TextureManager, graphics::Texture)
 
+	INIT_MANAGER(FontManager, graphics::Font)
+
 	template <typename T>
 	Manager<T>::Manager()
 	{
-		//static_assert(std::is_base_of<Manageable, T>::value, "T must be derived from Managable!");
+		
 	}
 
 	template <typename T>

@@ -20,7 +20,7 @@ namespace in { namespace core {
 		Node(const INString& name);
 		~Node();
 	private:
-	protected:
+	public:
 		void ReculculateModelMatrix();
 		void OnRender() override;
 		void OnStart() override;

@@ -2,11 +2,20 @@
 
 #include <in\InfinitTypes.h>
 #include <in\maths\Maths.h>
-#include <in\manager\managable.h>
 
-#include <ext\freetype-gl\freetype-gl.h>
+namespace ftgl
+{
+	struct texture_atlas_t;
+	struct texture_font_t;
+}
 
-namespace in { namespace graphics {
+namespace in { 
+	namespace manager
+	{
+		class Manageable;
+	}
+	
+	namespace graphics {
 
 	class Font : public manager::Manageable
 	{
@@ -25,6 +34,9 @@ namespace in { namespace graphics {
 
 		void SetScale(float x, float y);
 		const INUint GetID() const;
+
+		float GetWidth(const INString& text) const;
+		float GetHeight(const INString& text) const;
 	};
 
 } }

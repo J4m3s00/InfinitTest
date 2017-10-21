@@ -8,9 +8,24 @@ namespace in { namespace graphics {
 	class Texture;
 	class Font;
 
+	enum HORIZONTAL_TEXT_ALIGNMENT
+	{
+		LEFT,
+		CENTER,
+		RIGHT
+	};
+
+	enum VERTICAL_TEXT_ALIGNMENT
+	{
+		TOP,
+		MIDDLE,
+		BOTTOM
+	};
+
 	class Renderer2D
 	{
 	private:
+		
 	public:
 		virtual void DrawRect(float x, float y, float width, float height, INUint color, float thickness = 0.02f) {}
 		virtual void DrawRect(float x, float y, float width, float height, const Color& color, float thickness = 0.02f) {}
@@ -20,6 +35,9 @@ namespace in { namespace graphics {
 
 		virtual void DrawString(const INString& string, float x, float y, Font* font, INUint color) {}
 		virtual void DrawString(const INString& string, float x, float y, Font* font, const Color& color) {}
+
+		virtual void DrawString(const INString& string, float x, float y, float width, float height, Font* font, INUint color, HORIZONTAL_TEXT_ALIGNMENT horizontalTextAlignment = LEFT, VERTICAL_TEXT_ALIGNMENT verticalTextAlignment = BOTTOM) {}
+		virtual void DrawString(const INString& string, float x, float y, float width, float height, Font* font, const Color& color, HORIZONTAL_TEXT_ALIGNMENT horizontalTextAlignment = LEFT, VERTICAL_TEXT_ALIGNMENT verticalTextAlignment = BOTTOM) {}
 
 		virtual void FillRect(float x, float y, float width, float height, INUint color) {}
 		virtual void FillRect(float x, float y, float width, float height, const Color& color) {}

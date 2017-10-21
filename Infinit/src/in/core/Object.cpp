@@ -18,7 +18,7 @@ namespace in { namespace core {
 
 	void Object::Update()
 	{
-		Update_();
+		//Update_();
 		for (INUint i = 0; i < m_Childs.size(); i++)
 			if (m_Childs[i])
 				m_Childs[i]->Update();
@@ -26,7 +26,7 @@ namespace in { namespace core {
 
 	void Object::Render()
 	{
-		Render_();
+		//Render_();
 		for (INUint i = 0; i < m_Childs.size(); i++)
 			if (m_Childs[i])
 				m_Childs[i]->Render();

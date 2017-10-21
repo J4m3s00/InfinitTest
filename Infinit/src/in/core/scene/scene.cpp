@@ -1,5 +1,6 @@
 #include "Scene.h"
 
+#include <GL\glew.h>
 #include <in\graphics\shader\Shader.h>
 
 namespace in { namespace core {
@@ -10,7 +11,7 @@ namespace in { namespace core {
 	{
 		m_BatchShader = manager::ShaderManager::Get("BatchRenderer");
 		m_BatchShader->Bind();
-		m_BatchShader->SetUniformMat4("pr_matrix", maths::mat4::Orthographic(-16.0f, 16.0f, -9.0f, 9.0f, -1.0f, 1.0f));
+		m_BatchShader->SetUniformMat4("pr_matrix", maths::mat4::Orthographic(0.0f, graphics::Window::GetWidth(), graphics::Window::GetHeight(), 0.0f, -1.0f, 1.0f));
 		for (int i = 0; i < 16; i++)
 			m_BatchShader->SetUniform1i("textures[" + std::to_string(i) + "]", i);
 		m_BatchShader->Unbind();
@@ -32,7 +33,10 @@ namespace in { namespace core {
 
 	void Scene::AddRenderable(graphics::Renderable* renderable)
 	{
-		m_Renderables.push_back(renderable);
+		if (renderable)
+			m_Renderables.push_back(renderable);
+		else
+			IN_ERROR("Renderable is NULL");
 	}
 
 	void Scene::Render()
@@ -40,8 +44,9 @@ namespace in { namespace core {
 		m_Renderables.clear();
 		for (INUint i = 0; i < m_Nodes.size(); i++)
 			if (m_Nodes[i])
-				m_Nodes[i]->Render();
+				m_Nodes[i]->Render_();
 
+		glDisable(GL_DEPTH_TEST);
 		m_BatchShader->Bind();
 		m_Renderer.Begin();
 		for (INUint i = 0; i < m_Renderables.size(); i++)
@@ -49,20 +54,21 @@ namespace in { namespace core {
 		m_Renderer.End();
 		m_Renderer.Flush();
 		m_BatchShader->Unbind();
+		glEnable(GL_DEPTH_TEST);
 	}
 
 	void Scene::Update()
 	{
 		for (INUint i = 0; i < m_Nodes.size(); i++)
 			if (m_Nodes[i])
-				m_Nodes[i]->Update();
+				m_Nodes[i]->Update_();
 	}
 
 	void Scene::Start()
 	{
 		for (INUint i = 0; i < m_Nodes.size(); i++)
 			if (m_Nodes[i])
-				m_Nodes[i]->Start();
+				m_Nodes[i]->Start_();
 	}
 
 	Scene* Scene::GetActiveScene()

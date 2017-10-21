@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{8B29E92E-A2CC-428F-8DCE-1728FF761350}</ProjectGuid>
     <RootNamespace>Infinit</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -139,6 +139,7 @@
     <ClInclude Include="src\in\core\scene\2d\Canvas.h" />
     <ClInclude Include="src\in\core\scene\2d\CanvasItem.h" />
     <ClInclude Include="src\in\core\scene\gui\BaseButton.h" />
+    <ClInclude Include="src\in\core\scene\gui\Button.h" />
     <ClInclude Include="src\in\core\scene\Scene.h" />
     <ClInclude Include="src\in\core\Transform.h" />
     <ClInclude Include="src\in\graphics\BatchRenderer2D.h" />
@@ -185,6 +186,7 @@
     <ClCompile Include="src\in\core\Object.cpp" />
     <ClCompile Include="src\in\core\scene\2d\CanvasItem.cpp" />
     <ClCompile Include="src\in\core\scene\gui\BaseButton.cpp" />
+    <ClCompile Include="src\in\core\scene\gui\Button.cpp" />
     <ClCompile Include="src\in\core\scene\scene.cpp" />
     <ClCompile Include="src\in\core\Transform.cpp" />
     <ClCompile Include="src\in\graphics\BatchRenderer2D.cpp" />

@@ -25,6 +25,7 @@ return m_Manager.GetItem(name); \
 	namespace graphics {
 		class Shader;
 		class Texture;
+		class Font;
 	}
 
 	namespace manager {
@@ -62,4 +63,6 @@ return m_Manager.GetItem(name); \
 
 	MANAGER_CLASS(TextureManager, graphics::Texture)
 
+	MANAGER_CLASS(FontManager, graphics::Font)
+		
 } }

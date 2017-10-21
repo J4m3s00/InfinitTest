@@ -56,6 +56,11 @@ namespace in { namespace graphics {
 		void DrawString(const INString& string, float x, float y, Font* font, INUint color) override;
 		void DrawString(const INString& string, float x, float y, Font* font, const Color& color) override;
 
+		void DrawString(const INString& string, float x, float y, float width, float height, Font* font, INUint color,
+			HORIZONTAL_TEXT_ALIGNMENT horizontalTextAlignment = LEFT, VERTICAL_TEXT_ALIGNMENT verticalTextAlignment = BOTTOM);
+		void DrawString(const INString& string, float x, float y, float width, float height, Font* font, const Color& color,
+			HORIZONTAL_TEXT_ALIGNMENT horizontalTextAlignment = LEFT, VERTICAL_TEXT_ALIGNMENT verticalTextAlignment = BOTTOM);
+
 		void FillRect(float x, float y, float width, float height, INUint color) override;
 		void FillRect(float x, float y, float width, float height, const Color& color) override;
 
