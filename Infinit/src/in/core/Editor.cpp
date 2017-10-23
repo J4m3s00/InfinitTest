@@ -36,8 +36,16 @@ namespace in { namespace core {
 		Scene* scene = new Scene("First Scene");
 		Scene::SetActiveScene(scene);
 
+		Object* object = new Object("Test Object");
+		TextField* textField = object->AddNode<TextField>();
+		textField->m_Size = maths::vec2(200.0f, 32.0f);
+
+		scene->AddObject(object);
+
 		//scene->AddNode(new CanvasItem("Canvas ITem", maths::vec2()));
-		scene->AddNode(new TextField("Text Field", 100.0f, 100.0f, 200.0f, 30.0f));
+		//scene->AddNode(new TextField("Text Field", 100.0f, 100.0f, 200.0f, 30.0f));
+
+		scene->Start();
 		Run();
 	}
 

@@ -4,14 +4,14 @@
 
 #include <in\graphics\BatchRenderer2D.h>
 #include <in\graphics\renderable\Renderable.h>
-#include "../Node.h"
+#include "../Object.h"
 
 namespace in { namespace core {
 
 	class Scene
 	{
 	private:
-		vector<Node*> m_Nodes;
+		vector<Object*> m_Objects;
 		vector<graphics::Renderable*> m_Renderables;
 		static Scene* activeScene;
 
@@ -28,7 +28,7 @@ namespace in { namespace core {
 
 		const INString& GetName() const { return m_Name; }
 
-		void AddNode(Node* node);
+		void AddObject(Object* node);
 
 		void AddRenderable(graphics::Renderable* renderable);
 	public:

@@ -5,26 +5,22 @@
 
 namespace in { namespace core {
 
-	class Node : public Object
+	class Node
 	{
-		INCLASS(Node, Object)
+		INCLASS_(Node)
 
-	private:
-		bool m_UpdateModelMatrix;
-		Transform m_PrevTransform;
-
-		maths::mat4 m_ModelMatrix;
+			friend class Object;
 	protected:
-		Transform m_Transform;
-	public:
+		Transform* m_Transform;
+		INString m_Name;
+	protected:
 		Node(const INString& name);
-		~Node();
-	private:
 	public:
-		void ReculculateModelMatrix();
-		void OnRender() override;
-		void OnStart() override;
-		void OnUpdate() override;
+		~Node();
+	public:
+		virtual void OnRender();
+		virtual void OnStart();
+		virtual void OnUpdate();
 	};
 
 } }

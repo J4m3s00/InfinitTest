@@ -1,6 +1,7 @@
 #include "vec3.h"
 
 #include "mat4.h"
+#include "vec2.h"
 #include <math.h>
 
 namespace in { namespace maths {
@@ -180,6 +181,21 @@ namespace in { namespace maths {
 		float b = z * other.x - x * other.z;
 		float c = x * other.y - y * other.x;
 		return vec3(a, b, c);
+	}
+
+	vec2 vec3::xy() const
+	{
+		return vec2(x, y);
+	}
+
+	vec2 vec3::xz() const
+	{
+		return vec2(x, z);
+	}
+
+	vec2 vec3::yz() const
+	{
+		return vec2(y, z);
 	}
 
 } }

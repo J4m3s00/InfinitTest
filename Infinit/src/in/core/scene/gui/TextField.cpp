@@ -4,53 +4,61 @@
 
 namespace in { namespace core {
 
-	TextField::TextField(const INString& name, const maths::vec3& position, const maths::vec2& size, const INString& text)
-		: CanvasItem(name, size), m_Text(text)
+	TextField::TextField()
+		: CanvasItem("Text Field"), m_Text(""), m_CursorLocation(0)
 	{
-		m_Transform.SetPosition(position.x, position.y, position.z);
-		m_Label = new graphics::Label(maths::vec2(position.x, position.y), text, manager::FontManager::Get("DefaultFont"));
-		m_Label->SetBounds(size);
-		m_Label->SetHorizontalTextAlignment(graphics::HORIZONTAL_TEXT_ALIGNMENT::CENTER);
-		m_Label->SetVerticalTextAlignment(graphics::VERTICAL_TEXT_ALIGNMENT::MIDDLE);
-		m_Rect = new graphics::Rectangle(maths::vec2(position.x, position.y), size, graphics::Color(0.6f, 0.6f, 0.6f));
 	}
 
-	TextField::TextField(const INString& name, const maths::vec2& position, const maths::vec2& size, const INString& text)
-		: CanvasItem(name, size), m_Text(text)
+	TextField::TextField(const maths::vec2& size, const INString& text)
+		: CanvasItem("Text Field", size), m_Text(text), m_CursorLocation(text.size())
 	{
-		m_Transform.SetPosition(position.x, position.y, 0.0f);
-		m_Label = new graphics::Label(position, text, manager::FontManager::Get("DefaultFont"));
-		m_Label->SetBounds(size);
-		m_Label->SetHorizontalTextAlignment(graphics::HORIZONTAL_TEXT_ALIGNMENT::CENTER);
-		m_Label->SetVerticalTextAlignment(graphics::VERTICAL_TEXT_ALIGNMENT::MIDDLE);
-		m_Rect = new graphics::Rectangle(maths::vec2(position.x, position.y), size, graphics::Color(0.6f, 0.6f, 0.6f));
 	}
 
-	TextField::TextField(const INString& name, float x, float y, float width, float height, const INString& text)
-		: CanvasItem(name, maths::vec2(width, height)), m_Text(text)
+	TextField::TextField(float width, float height, const INString& text)
+		: CanvasItem("Text Field", maths::vec2(width, height)), m_Text(text), m_CursorLocation(text.size())
 	{
-		m_Transform.SetPosition(x, y, 0.0f);
-		m_Label = new graphics::Label(maths::vec2(x, y), text, manager::FontManager::Get("DefaultFont"));
-		m_Label->SetBounds(maths::vec2(width, height));
-		m_Label->SetHorizontalTextAlignment(graphics::HORIZONTAL_TEXT_ALIGNMENT::CENTER);
-		m_Label->SetVerticalTextAlignment(graphics::VERTICAL_TEXT_ALIGNMENT::MIDDLE);
-		m_Rect = new graphics::Rectangle(maths::vec2(x, y), maths::vec2(width, height), graphics::Color(0.6f, 0.6f, 0.6f));
+		
 	}
 
 	void TextField::OnUpdate()
 	{
 		if (m_Selected)
+		{
 			m_Text.append(Input::GetTypedText());
+			m_CursorLocation = m_Text.size();
+			if (Input::IsKeyTyped(IN_KEY_BACKSPACE))
+			{
+				if (m_Text.size() > 0)
+				{
+					m_Text.erase(m_CursorLocation - 1, 1);
+					m_CursorLocation = m_Text.size();
+				}
+			}
+		}
+	}
+
+	void TextField::OnStart()
+	{
+		m_Label = new graphics::Label(m_Transform->position.xy(), m_Text, manager::FontManager::Get("DefaultFont"));
+		m_Label->SetBounds(m_Size);
+		m_Label->SetHorizontalTextAlignment(graphics::HORIZONTAL_TEXT_ALIGNMENT::LEFT);
+		m_Label->SetVerticalTextAlignment(graphics::VERTICAL_TEXT_ALIGNMENT::MIDDLE);
+		m_Rect = new graphics::Rectangle(m_Transform->position.xy(), m_Size, graphics::Color(0.6f, 0.6f, 0.6f));
 	}
 
 	void TextField::OnRender()
 	{
+		m_Label->SetBounds(m_Size);
 		m_Label->SetText(m_Text);
 
 		if (m_Selected)
-			m_Rect->SetColor(graphics::Color(1.0f, 1.0f, 1.0f));
+			m_Rect->SetColor(graphics::Color(0.1f, 0.1f, 0.1f));
 		else
 			m_Rect->SetColor(graphics::Color(0.6f, 0.6f, 0.6f));
+
+		m_Rect->SetSize(m_Size);
+
+		m_Rect->SetPosition(m_Transform->position.xy());
 
 		if (Scene::HasActiveScene())
 		{

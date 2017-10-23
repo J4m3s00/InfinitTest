@@ -5,7 +5,7 @@
 namespace in { namespace core {
 
 	Node::Node(const INString& name)
-		: Object(name), m_Transform(), m_PrevTransform(m_Transform)
+		: m_Name(name), m_Transform()
 	{
 		
 	}
@@ -27,18 +27,9 @@ namespace in { namespace core {
 
 	void Node::OnUpdate()
 	{
-		if (m_PrevTransform != m_Transform)
-		{
-			ReculculateModelMatrix();
-		}
+		
 	}
 
-	void Node::ReculculateModelMatrix()
-	{
-		if (m_Parent)
-			m_ModelMatrix = ((Node*)m_Parent)->m_Transform.GetModelMatrix();
-		else
-			m_ModelMatrix = m_Transform.GetModelMatrix();
-	}
+	
 
 } }

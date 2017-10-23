@@ -1,10 +1,9 @@
 #pragma once
 
-#include "vec4.h"
-
 namespace in { namespace maths {
 
 	struct mat4;
+	struct vec2;
 
 	struct vec3
 	{
@@ -41,6 +40,10 @@ namespace in { namespace maths {
 		friend vec3& operator*(vec3 left, const mat4&right);
 
 		friend vec3 operator-(const vec3& vector);
+
+		vec2 xy() const;
+		vec2 xz() const;
+		vec2 yz() const;
 
 		vec3& CrossProduct(const vec3& other);
 		float Lenght();

@@ -7,24 +7,35 @@
 
 namespace in { namespace core {
 
-	BaseButton::BaseButton(const INString& name, const maths::vec3& position, const maths::vec2& size)
-		: CanvasItem(name, size)
+	BaseButton::BaseButton()
+		: CanvasItem("BaseButton")
 	{
-		m_Transform.SetPosition(position.x, position.y, position.z);
-		m_Rect = new graphics::Rectangle(maths::vec2(position.x, position.y), m_Size, graphics::Color(0.3f, 0.3f, 0.3f));
+		m_Rect = new graphics::Rectangle(m_Transform->position.xy(), m_Size, graphics::Color(0.3f, 0.3f, 0.3f));
 	}
 
-	BaseButton::BaseButton(const INString& name, float x, float y, float width, float height)
+	BaseButton::BaseButton(const INString& name)
+		: CanvasItem(name)
+	{
+		m_Rect = new graphics::Rectangle(m_Transform->position.xy(), m_Size, graphics::Color(0.3f, 0.3f, 0.3f));
+	}
+
+	BaseButton::BaseButton(const INString& name, const maths::vec2& size)
+		: CanvasItem(name, size)
+	{
+		m_Rect = new graphics::Rectangle(m_Transform->position.xy(), m_Size, graphics::Color(0.3f, 0.3f, 0.3f));
+	}
+
+	BaseButton::BaseButton(const INString& name, float width, float height)
 		: CanvasItem(name, maths::vec2(width, height))
 	{
-		m_Transform.SetPosition(maths::vec3(x, y, 0.0f));
-		m_Rect = new graphics::Rectangle(maths::vec2(x, y), m_Size, graphics::Color(0.3f, 0.3f, 0.3f));
+		m_Rect = new graphics::Rectangle(m_Transform->position.xy(), m_Size, graphics::Color(0.3f, 0.3f, 0.3f));
 	}
 
 	void BaseButton::OnRender()
 	{
 		if (Scene::HasActiveScene())
 		{
+			m_Rect->SetPosition((maths::vec2&) m_Transform->position);
 			m_Rect->SetColor(m_NormalColor);
 
 			if (m_MouseOver)

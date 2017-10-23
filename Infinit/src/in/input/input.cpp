@@ -18,6 +18,7 @@ namespace in {
 	bool Input::m_KeysPressed[INPUT_MAX_KEYS];
 	bool Input::m_KeysRepeated[INPUT_MAX_KEYS];
 	bool Input::m_KeysReleased[INPUT_MAX_KEYS];
+	bool Input::m_KeysTyped[INPUT_MAX_KEYS];
 
 	INInt Input::m_MouseX = 0;
 	INInt Input::m_MouseY = 0;
@@ -53,6 +54,13 @@ namespace in {
 		if (key >= INPUT_MAX_KEYS) return false;
 
 		return m_KeysPressed[key];
+	}
+
+	bool Input::IsKeyTyped(INUint key)
+	{
+		if (key >= INPUT_MAX_KEYS) return false;
+
+		return m_KeysTyped[key];
 	}
 
 	bool Input::IsMouseDown(INUint mouse)

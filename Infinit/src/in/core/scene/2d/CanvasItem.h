@@ -17,8 +17,9 @@ namespace in { namespace core {
 
 		INCLASS(CanvasItem, Node)
 
-	protected:
+	public:
 		maths::vec2 m_Size;
+	protected:
 		vector<PressedCallback> m_PressedCallbacks;
 		vector<MouseEnterCallback> m_MouseEnterCallbacks;
 		vector<MouseLeaveCallback> m_MouseLeaveCallbacks;
@@ -30,6 +31,8 @@ namespace in { namespace core {
 		float m_LastDraggedX;
 		float m_LastDraggedY;
 	public:
+		CanvasItem();
+		CanvasItem(const INString& name);
 		CanvasItem(const INString& name, const maths::vec2& size);
 
 		CanvasItem* AddPressedCallback(const PressedCallback& callback) { m_PressedCallbacks.push_back(callback); return this; }

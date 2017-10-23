@@ -1,5 +1,7 @@
 #pragma once
 
+#include <in\utils\log.h>
+
 #include <map>
 
 #include "managable.h"
@@ -54,6 +56,7 @@ return m_Manager.GetItem(name); \
 					return m_Handles[i];
 				}
 			}
+			IN_WARNING("Could not find ", typeid(T).name(), " ", name);
 			return nullptr;
 		}
 

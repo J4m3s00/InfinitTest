@@ -19,16 +19,16 @@ namespace in { namespace core {
 
 	Scene::~Scene()
 	{
-		for (INUint i = 0; i < m_Nodes.size(); i++)
-			if (m_Nodes[i])
-				delete m_Nodes[i];
-		m_Nodes.clear();
+		for (INUint i = 0; i < m_Objects.size(); i++)
+			if (m_Objects[i])
+				delete m_Objects[i];
+		m_Objects.clear();
 	}
 
-	void Scene::AddNode(Node* node)
+	void Scene::AddObject(Object* object)
 	{
-		if (node)
-			m_Nodes.push_back(node);
+		if (object)
+			m_Objects.push_back(object);
 	}
 
 	void Scene::AddRenderable(graphics::Renderable* renderable)
@@ -42,9 +42,9 @@ namespace in { namespace core {
 	void Scene::Render()
 	{
 		m_Renderables.clear();
-		for (INUint i = 0; i < m_Nodes.size(); i++)
-			if (m_Nodes[i])
-				m_Nodes[i]->Render_();
+		for (INUint i = 0; i < m_Objects.size(); i++)
+			if (m_Objects[i])
+				m_Objects[i]->Render();
 
 		glDisable(GL_DEPTH_TEST);
 		m_BatchShader->Bind();
@@ -59,16 +59,16 @@ namespace in { namespace core {
 
 	void Scene::Update()
 	{
-		for (INUint i = 0; i < m_Nodes.size(); i++)
-			if (m_Nodes[i])
-				m_Nodes[i]->Update_();
+		for (INUint i = 0; i < m_Objects.size(); i++)
+			if (m_Objects[i])
+				m_Objects[i]->Update();
 	}
 
 	void Scene::Start()
 	{
-		for (INUint i = 0; i < m_Nodes.size(); i++)
-			if (m_Nodes[i])
-				m_Nodes[i]->Start_();
+		for (INUint i = 0; i < m_Objects.size(); i++)
+			if (m_Objects[i])
+				m_Objects[i]->Start();
 	}
 
 	Scene* Scene::GetActiveScene()

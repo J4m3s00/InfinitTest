@@ -79,6 +79,7 @@ namespace in { namespace graphics {
 		for (int i = 0; i < INPUT_MAX_KEYS; i++)
 		{
 			Input::SetKeyPressed(i, false);
+			Input::SetKeyTyped(i, false);
 		}
 		for (int i = 0; i < INPUT_MAX_BUTTONS; i++)
 		{
@@ -110,15 +111,18 @@ namespace in { namespace graphics {
 		{
 			Input::SetKeyDown(key, false);
 			Input::SetKeyPressed(key, false);
+			Input::SetKeyTyped(key, false);
 		}
 		else if (action == GLFW_PRESS)
 		{
 			Input::SetKeyDown(key, true);
 			Input::SetKeyPressed(key, true);
+			Input::SetKeyTyped(key, true);
 		}
 		else if (action == GLFW_REPEAT)
 		{
 			Input::SetKeyDown(key, true);
+			Input::SetKeyTyped(key, true);
 		}
 	}
 

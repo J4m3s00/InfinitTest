@@ -9,20 +9,27 @@
 
 namespace in { namespace core {
 
+	CanvasItem::CanvasItem(const INString& name)
+		: Node(name), m_Size()
+	{}
+
 	CanvasItem::CanvasItem(const INString& name, const maths::vec2& size)
 		: Node(name), m_Size(size)
 	{
 	}
 
+	CanvasItem::CanvasItem()
+		: Node("Canvas Item"), m_Size()
+	{}
+
 	void CanvasItem::OnUpdate()
 	{
-		printf(Input::GetTypedText().c_str());
 		int mouseX = Input::GetMouseX();
 		int mouseY = Input::GetMouseY();
 
-		if (mouseX > m_Transform.position.x && mouseX < m_Transform.position.x + m_Size.x)
+		if (mouseX > m_Transform->position.x && mouseX < m_Transform->position.x + m_Size.x)
 		{
-			if (mouseY > m_Transform.position.y && mouseY < m_Transform.position.y + m_Size.y)
+			if (mouseY > m_Transform->position.y && mouseY < m_Transform->position.y + m_Size.y)
 			{
 				if (!m_MouseOver)
 				{

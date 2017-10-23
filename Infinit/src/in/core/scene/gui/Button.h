@@ -18,8 +18,11 @@ namespace in {
 	private:
 		graphics::Label* m_Label;
 	public:
-		Button(const INString& name, const maths::vec3& position, const maths::vec2& size, const INString& text);
-		Button(const INString& name, float x, float y, float width, float height, const INString& text);
+		INString text;
+	public:
+		Button();
+		Button(const maths::vec2& size, const INString& text);
+		Button(float width, float height, const INString& text);
 
 		void OnRender() override;
 	};

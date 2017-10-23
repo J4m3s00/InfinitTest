@@ -16,11 +16,13 @@ namespace in { namespace core {
 		graphics::Rectangle* m_Rect;
 
 		INString m_Text;
+		INUint m_CursorLocation;
 	public:
-		TextField(const INString& name, const maths::vec3& position, const maths::vec2& size, const INString& text = "");
-		TextField(const INString& name, const maths::vec2& position, const maths::vec2& size, const INString& text = "");
-		TextField(const INString& name, float x, float y, float width, float height, const INString& text = "");
+		TextField();
+		TextField(const maths::vec2& size, const INString& text = "");
+		TextField(float width, float height, const INString& text = "");
 
+		void OnStart() override;
 		void OnUpdate() override;
 		void OnRender() override;
 	};
