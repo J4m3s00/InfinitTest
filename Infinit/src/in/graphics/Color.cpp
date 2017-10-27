@@ -2,8 +2,8 @@
 
 namespace in { namespace graphics {
 
-	const Color& Color::CANVAS_ITEM_HOVERED = Color(0.18f, 0.18f, 0.18f, 1.0f);
-	const Color& Color::CANVAS_ITEM_NORMAL = Color(0.3f, 0.3f, 0.3f, 1.0f);
+	const Color& Color::CANVAS_ITEM_HOVERED = Color(0.9f, 0.9f, 0.9f, 1.0f);
+	const Color& Color::CANVAS_ITEM_NORMAL = Color(0.8f, 0.8f, 0.8f, 1.0f);
 	const Color& Color::CANVAS_ITEM_PRESSED = Color(0.5f, 0.5f, 0.5f, 1.0f);
 
 	Color::Color(INUint color)

@@ -48,9 +48,10 @@ namespace in { namespace core {
 
 		glDisable(GL_DEPTH_TEST);
 		m_BatchShader->Bind();
+		m_BatchShader->SetUniformMat4("pr_matrix", maths::mat4::Orthographic(0.0f, graphics::Window::GetWidth(), graphics::Window::GetHeight(), 0.0f, -1.0f, 1.0f));
 		m_Renderer.Begin();
-		for (INUint i = 0; i < m_Renderables.size(); i++)
-			m_Renderables[i]->Draw(m_Renderer);
+		for (INUint i = 0; i < m_Objects.size(); i++)
+			m_Objects[i]->RenderStatic2D(m_Renderer);
 		m_Renderer.End();
 		m_Renderer.Flush();
 		m_BatchShader->Unbind();

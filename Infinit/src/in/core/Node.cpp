@@ -30,6 +30,9 @@ namespace in { namespace core {
 		
 	}
 
-	
+	void Node::OnRenderStatic2D(graphics::Renderer2D& renderer)
+	{
+
+	}
 
 } }

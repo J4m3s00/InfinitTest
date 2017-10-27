@@ -5,7 +5,13 @@
 
 #include "Transform.h"
 
-namespace in { namespace core {
+namespace in { 
+	
+	namespace graphics {
+		class Renderer2D;
+	}
+
+	namespace core {
 
 	class Node;
 
@@ -15,16 +21,15 @@ namespace in { namespace core {
 		INString m_Name;
 		vector<Object*> m_Childs;
 		vector<Node*> m_Nodes;
+		vector<Node*> m_Static2DNodes;
 		Object* m_Parent;
 	private:
-		Transform m_PrevTransform;
-
-		Transform m_Transform;
+		Transform* m_Transform;
 
 		maths::mat4 m_ModelMatrix;
 	public:
 		Object(const INString& name);
-		Object(const INString& name, const Transform& transform);
+		Object(const INString& name, Transform* transform);
 		virtual ~Object();
 
 		void SetParent(Object* object);
@@ -47,6 +52,7 @@ namespace in { namespace core {
 		void Start();
 		void Render();
 		void Update();
+		void RenderStatic2D(graphics::Renderer2D& renderer);
 
 		const maths::mat4& GetModelMatrix() const;
 	private:

@@ -140,6 +140,8 @@
     <ClInclude Include="src\in\core\scene\2d\CanvasItem.h" />
     <ClInclude Include="src\in\core\scene\gui\BaseButton.h" />
     <ClInclude Include="src\in\core\scene\gui\Button.h" />
+    <ClInclude Include="src\in\core\scene\gui\MoveableItem.h" />
+    <ClInclude Include="src\in\core\scene\gui\Slider.h" />
     <ClInclude Include="src\in\core\scene\gui\TextField.h" />
     <ClInclude Include="src\in\core\scene\Scene.h" />
     <ClInclude Include="src\in\core\Transform.h" />
@@ -188,6 +190,8 @@
     <ClCompile Include="src\in\core\scene\2d\CanvasItem.cpp" />
     <ClCompile Include="src\in\core\scene\gui\BaseButton.cpp" />
     <ClCompile Include="src\in\core\scene\gui\Button.cpp" />
+    <ClCompile Include="src\in\core\scene\gui\MoveableItem.cpp" />
+    <ClCompile Include="src\in\core\scene\gui\Slider.cpp" />
     <ClCompile Include="src\in\core\scene\gui\TextField.cpp" />
     <ClCompile Include="src\in\core\scene\scene.cpp" />
     <ClCompile Include="src\in\core\Transform.cpp" />

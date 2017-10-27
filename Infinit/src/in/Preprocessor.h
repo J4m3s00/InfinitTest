@@ -20,7 +20,12 @@ virtual void Update_() override {	\
 	__super::Update_(); \
 	if (typeid(&className::OnUpdate) != typeid(&inheritance::OnUpdate)) \
 		className::OnUpdate(); \
-	}
+	} \
+virtual void RenderStatic2D_(graphics::Renderer2D& renderer) override { \
+	__super::RenderStatic2D_(renderer); \
+	if (typeid(&className::OnRenderStatic2D) != typeid(&inheritance::OnRenderStatic2D)) \
+		className::OnRenderStatic2D(renderer); \
+}
 
 #define INCLASS_(className)						\
 private:													\
@@ -36,4 +41,7 @@ virtual void Render_() {	\
 	} \
 virtual void Update_() {	\
 	className::OnUpdate(); \
-	} 
+	}  \
+virtual void RenderStatic2D_(graphics::Renderer2D& renderer) {\
+	className::OnRenderStatic2D(renderer); \
+}

@@ -5,6 +5,7 @@
 #include <GL\glew.h>
 #include "scene\gui\Button.h"
 #include "scene\gui\TextField.h"
+#include "scene\gui\Slider.h"
 
 namespace in { namespace core {
 
@@ -36,9 +37,9 @@ namespace in { namespace core {
 		Scene* scene = new Scene("First Scene");
 		Scene::SetActiveScene(scene);
 
-		Object* object = new Object("Test Object");
-		TextField* textField = object->AddNode<TextField>();
-		textField->m_Size = maths::vec2(200.0f, 32.0f);
+		Object* object = new Object("Test Object", new RectTransform(maths::vec3(), maths::vec2(200.0f, 32.0f)));
+		object->AddNode<Slider>();
+		//textField->m_Size = maths::vec2(200.0f, 32.0f);
 
 		scene->AddObject(object);
 

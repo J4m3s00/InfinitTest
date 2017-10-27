@@ -5,13 +5,15 @@
 namespace in { namespace core {
 
 	Object::Object(const INString& name)
-		: m_Name(name), m_Transform(), m_PrevTransform(m_Transform)
+		: m_Name(name)
 	{
+		m_Transform = new Transform();
 	}
 
-	Object::Object(const INString& name, const Transform& transform)
-		: m_Name(name), m_Transform(transform), m_PrevTransform(m_Transform)
+	Object::Object(const INString& name, Transform* transform)
+		: m_Name(name)
 	{
+		m_Transform = transform;
 	}
 
 
@@ -36,13 +38,13 @@ namespace in { namespace core {
 
 	void Object::AddNode(Node* node)
 	{
-		node->m_Transform = &m_Transform;
+		node->m_Transform = m_Transform;
 		m_Nodes.push_back(node);
 	}
 
 	void Object::Update()
 	{
-		if (m_PrevTransform != m_Transform)
+		if (m_Transform->NeedUpdate())
 		{
 			ReculculateModelMatrix();
 		}
@@ -59,12 +61,32 @@ namespace in { namespace core {
 	void Object::Render()
 	{
 		for (INUint i = 0; i < m_Nodes.size(); i++)
-			if (m_Nodes[i])
-				m_Nodes[i]->Render_();
+		{
+			Node* node = m_Nodes[i];
+			if (node)
+			{
+				if (node->IsStatic2D())
+					m_Static2DNodes.push_back(node);
+				else
+					node->Render_();
+			}
+		}
 
 		for (INUint i = 0; i < m_Childs.size(); i++)
 			if (m_Childs[i])
 				m_Childs[i]->Render();
+	}
+
+	void Object::RenderStatic2D(graphics::Renderer2D& renderer)
+	{
+		for (INUint i = 0; i < m_Nodes.size(); i++)
+		{
+			Node* node = m_Nodes[i];
+			if (node)
+			{
+				node->RenderStatic2D_(renderer);
+			}
+		}
 	}
 
 	void Object::SetParent(Object* object)
@@ -92,33 +114,33 @@ namespace in { namespace core {
 	const maths::vec3& Object::GetWorldPosition()
 	{
 		if (m_Parent)
-			return m_Parent->GetWorldPosition() + m_Transform.position;
+			return m_Parent->GetWorldPosition() + m_Transform->position;
 		else
-			return m_Transform.position;
+			return m_Transform->position;
 	}
 
 	const maths::vec3& Object::GetWorldRotation()
 	{
 		if (m_Parent)
-			return m_Parent->GetWorldRotation() + m_Transform.rotation;
+			return m_Parent->GetWorldRotation() + m_Transform->rotation;
 		else
-			return m_Transform.rotation;
+			return m_Transform->rotation;
 	}
 
 	const maths::vec3& Object::GetWorldScale()
 	{
 		if (m_Parent)
-			return m_Parent->GetWorldScale() + m_Transform.scale;
+			return m_Parent->GetWorldScale() + m_Transform->scale;
 		else
-			return m_Transform.scale;
+			return m_Transform->scale;
 	}
 
 	void Object::ReculculateModelMatrix()
 	{
 		if (m_Parent)
-			m_ModelMatrix = m_Parent->m_Transform.GetModelMatrix() * m_Transform.GetModelMatrix();
+			m_ModelMatrix = m_Parent->m_Transform->GetModelMatrix() * m_Transform->GetModelMatrix();
 		else
-			m_ModelMatrix = m_Transform.GetModelMatrix();
+			m_ModelMatrix = m_Transform->GetModelMatrix();
 	}
 
 	const maths::mat4& Object::GetModelMatrix() const

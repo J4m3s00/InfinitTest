@@ -7,17 +7,13 @@ namespace in { namespace core {
 	TextField::TextField()
 		: CanvasItem("Text Field"), m_Text(""), m_CursorLocation(0)
 	{
+		Init();
 	}
 
-	TextField::TextField(const maths::vec2& size, const INString& text)
-		: CanvasItem("Text Field", size), m_Text(text), m_CursorLocation(text.size())
+	void TextField::Init()
 	{
-	}
-
-	TextField::TextField(float width, float height, const INString& text)
-		: CanvasItem("Text Field", maths::vec2(width, height)), m_Text(text), m_CursorLocation(text.size())
-	{
-		
+		textColor = graphics::Color(0.0f, 0.0f, 0.0f);
+		font = manager::FontManager::Get("DefaultFont");
 	}
 
 	void TextField::OnUpdate()
@@ -39,32 +35,19 @@ namespace in { namespace core {
 
 	void TextField::OnStart()
 	{
-		m_Label = new graphics::Label(m_Transform->position.xy(), m_Text, manager::FontManager::Get("DefaultFont"));
-		m_Label->SetBounds(m_Size);
-		m_Label->SetHorizontalTextAlignment(graphics::HORIZONTAL_TEXT_ALIGNMENT::LEFT);
-		m_Label->SetVerticalTextAlignment(graphics::VERTICAL_TEXT_ALIGNMENT::MIDDLE);
-		m_Rect = new graphics::Rectangle(m_Transform->position.xy(), m_Size, graphics::Color(0.6f, 0.6f, 0.6f));
+		
 	}
 
-	void TextField::OnRender()
+	void TextField::OnRenderStatic2D(graphics::Renderer2D& renderer)
 	{
-		m_Label->SetBounds(m_Size);
-		m_Label->SetText(m_Text);
-
-		if (m_Selected)
-			m_Rect->SetColor(graphics::Color(0.1f, 0.1f, 0.1f));
-		else
-			m_Rect->SetColor(graphics::Color(0.6f, 0.6f, 0.6f));
-
-		m_Rect->SetSize(m_Size);
-
-		m_Rect->SetPosition(m_Transform->position.xy());
-
-		if (Scene::HasActiveScene())
+		const maths::vec2& pos = m_Transform->position.xy();
+		graphics::HORIZONTAL_TEXT_ALIGNMENT align = graphics::HORIZONTAL_TEXT_ALIGNMENT::LEFT;
+		renderer.FillRect(pos.x, pos.y, m_Size->x, m_Size->y, graphics::Color::CANVAS_ITEM_NORMAL);
+		if (font->GetWidth(m_Text) > m_Size->x)
 		{
-			Scene::GetActiveScene()->AddRenderable(m_Rect);
-			Scene::GetActiveScene()->AddRenderable(m_Label);
+			align = graphics::HORIZONTAL_TEXT_ALIGNMENT::RIGHT;
 		}
+		renderer.DrawString(m_Text, pos.x, pos.y, m_Size->x, m_Size->y, font, textColor, align, graphics::VERTICAL_TEXT_ALIGNMENT::MIDDLE);
 	}
 
 } }

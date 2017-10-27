@@ -10,41 +10,16 @@ namespace in { namespace core {
 	BaseButton::BaseButton()
 		: CanvasItem("BaseButton")
 	{
-		m_Rect = new graphics::Rectangle(m_Transform->position.xy(), m_Size, graphics::Color(0.3f, 0.3f, 0.3f));
 	}
 
 	BaseButton::BaseButton(const INString& name)
 		: CanvasItem(name)
 	{
-		m_Rect = new graphics::Rectangle(m_Transform->position.xy(), m_Size, graphics::Color(0.3f, 0.3f, 0.3f));
 	}
 
-	BaseButton::BaseButton(const INString& name, const maths::vec2& size)
-		: CanvasItem(name, size)
+	void BaseButton::OnRenderStatic2D(graphics::Renderer2D& renderer)
 	{
-		m_Rect = new graphics::Rectangle(m_Transform->position.xy(), m_Size, graphics::Color(0.3f, 0.3f, 0.3f));
-	}
-
-	BaseButton::BaseButton(const INString& name, float width, float height)
-		: CanvasItem(name, maths::vec2(width, height))
-	{
-		m_Rect = new graphics::Rectangle(m_Transform->position.xy(), m_Size, graphics::Color(0.3f, 0.3f, 0.3f));
-	}
-
-	void BaseButton::OnRender()
-	{
-		if (Scene::HasActiveScene())
-		{
-			m_Rect->SetPosition((maths::vec2&) m_Transform->position);
-			m_Rect->SetColor(m_NormalColor);
-
-			if (m_MouseOver)
-				m_Rect->SetColor(m_HoveredColor);
-			if (m_Pushed)
-				m_Rect->SetColor(m_PressedColor);
-
-			Scene::GetActiveScene()->AddRenderable(m_Rect);
-		}
+		renderer.FillRect(m_Transform->position.x, m_Transform->position.y, m_Size->x, m_Size->y, m_Pushed ? graphics::Color::CANVAS_ITEM_PRESSED : m_MouseOver ? graphics::Color::CANVAS_ITEM_HOVERED : graphics::Color::CANVAS_ITEM_NORMAL);
 	}
 
 } }

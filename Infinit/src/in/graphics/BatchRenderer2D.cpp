@@ -225,7 +225,7 @@ namespace in { namespace graphics {
 				startX = x + ((width - textWidth) / 2);
 				break;
 			case RIGHT:
-				startX = x + (width * textWidth);
+				startX = x + (width - textWidth);
 				break;
 		}
 		float startY = 0;

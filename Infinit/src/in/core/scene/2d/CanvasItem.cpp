@@ -10,32 +10,35 @@
 namespace in { namespace core {
 
 	CanvasItem::CanvasItem(const INString& name)
-		: Node(name), m_Size()
-	{}
-
-	CanvasItem::CanvasItem(const INString& name, const maths::vec2& size)
-		: Node(name), m_Size(size)
+		: Node(name)
 	{
 	}
 
 	CanvasItem::CanvasItem()
-		: Node("Canvas Item"), m_Size()
-	{}
+		: Node("Canvas Item")
+	{
+	}
+
+	void CanvasItem::OnStart()
+	{
+		m_Size = &((RectTransform*)m_Transform)->size;
+		m_Static2D = true;
+	}
 
 	void CanvasItem::OnUpdate()
 	{
 		int mouseX = Input::GetMouseX();
 		int mouseY = Input::GetMouseY();
 
-		if (mouseX > m_Transform->position.x && mouseX < m_Transform->position.x + m_Size.x)
+		if (mouseX > m_Transform->position.x && mouseX < m_Transform->position.x + m_Size->x)
 		{
-			if (mouseY > m_Transform->position.y && mouseY < m_Transform->position.y + m_Size.y)
+			if (mouseY > m_Transform->position.y && mouseY < m_Transform->position.y + m_Size->y)
 			{
 				if (!m_MouseOver)
 				{
 					for (INUint i = 0; i < m_MouseEnterCallbacks.size(); i++)
 					{
-						m_MouseEnterCallbacks[i]();
+						m_MouseEnterCallbacks[i](this);
 					}
 				}
 				m_MouseOver = true;
@@ -46,7 +49,7 @@ namespace in { namespace core {
 				{
 					for (INUint i = 0; i < m_MouseLeaveCallbacks.size(); i++)
 					{
-						m_MouseLeaveCallbacks[i]();
+						m_MouseLeaveCallbacks[i](this);
 					}
 				}
 				m_MouseOver = false;
@@ -58,7 +61,7 @@ namespace in { namespace core {
 			{
 				for (INUint i = 0; i < m_MouseLeaveCallbacks.size(); i++)
 				{
-					m_MouseLeaveCallbacks[i]();
+					m_MouseLeaveCallbacks[i](this);
 				}
 			}
 			m_MouseOver = false;
@@ -77,7 +80,7 @@ namespace in { namespace core {
 			m_Pushed = false;
 			for (INUint i = 0; i < m_PressedCallbacks.size(); i++)
 			{
-				m_PressedCallbacks[i]();
+				m_PressedCallbacks[i](this);
 			}
 		}
 
@@ -87,7 +90,7 @@ namespace in { namespace core {
 		{
 			for (INUint i = 0; i < m_DraggedCallbacks.size(); i++)
 			{
-				m_DraggedCallbacks[i](mouseX - m_LastDraggedX, mouseY - m_LastDraggedY);
+				m_DraggedCallbacks[i](this, mouseX - m_LastDraggedX, mouseY - m_LastDraggedY);
 			}
 			m_LastDraggedX = mouseX;
 			m_LastDraggedY = mouseY;

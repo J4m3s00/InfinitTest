@@ -12,11 +12,12 @@ namespace in {
 		const maths::vec3& position;
 		const maths::vec3& rotation;
 		const maths::vec3& scale;
-	private:
+	protected:
 		maths::vec3 m_Position;
 		maths::vec3 m_Rotation;
 		maths::vec3 m_Scale;
-		int integer;
+
+		bool m_NeedUpdate;
 	public:
 		Transform();
 		Transform(const Transform& other);
@@ -49,7 +50,35 @@ namespace in {
 		bool operator==(const Transform& other);
 		bool operator!=(const Transform& other);
 	
+		bool NeedUpdate() { return m_NeedUpdate; }
+
 		const maths::mat4& GetModelMatrix() const;
+	};
+
+	class RectTransform : public Transform
+	{
+	public:
+		const maths::vec2& size;
+	private:
+		maths::vec2 m_Size;
+	public:
+		RectTransform();
+		RectTransform(float x, float y);
+		RectTransform(const maths::vec2& position);
+		RectTransform(const maths::vec3& position);
+		RectTransform(const maths::vec2& position, const maths::vec2& size);
+		RectTransform(float x, float y, float width, float height);
+		RectTransform(const maths::vec3& position, const maths::vec2& size);
+		RectTransform(float x, float y, float z, float width, float height);
+
+		void SetPosition(float x, float y);
+		void SetPosition(const maths::vec2& position);
+
+		void SetSize(float x, float y);
+		void SetSize(const maths::vec2& size);
+
+		bool operator==(const RectTransform& other);
+		bool operator!=(const RectTransform& other);
 	};
 
 } }

@@ -171,6 +171,12 @@
     <ClInclude Include="src\in\core\scene\gui\TextField.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\in\core\scene\gui\Slider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\in\core\scene\gui\MoveableItem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ext\freetype-gl\platform.c">
@@ -282,6 +288,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\in\core\scene\gui\TextField.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\in\core\scene\gui\Slider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\in\core\scene\gui\MoveableItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

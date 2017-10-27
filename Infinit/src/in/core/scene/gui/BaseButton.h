@@ -25,8 +25,6 @@ namespace in {
 			PRESSED,
 			HOVERED
 		};
-	private:
-		graphics::Rectangle* m_Rect;
 	public:
 		graphics::Color m_NormalColor = graphics::Color::CANVAS_ITEM_NORMAL;
 		graphics::Color m_HoveredColor = graphics::Color::CANVAS_ITEM_HOVERED;
@@ -34,10 +32,8 @@ namespace in {
 	public:
 		BaseButton();
 		BaseButton(const INString& name);
-		BaseButton(const INString& name, const maths::vec2& size);
-		BaseButton(const INString& name, float width, float height);
 
-		void OnRender() override;
+		void OnRenderStatic2D(graphics::Renderer2D& renderer) override;
 
 		void SetHoveredColor(const graphics::Color& color) { m_HoveredColor = color; }
 		void SetPressedColor(const graphics::Color& color) { m_PressedColor = color; }

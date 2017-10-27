@@ -19,12 +19,15 @@ namespace in {
 		graphics::Label* m_Label;
 	public:
 		INString text;
+
+		graphics::Font* font;
+		graphics::Color textColor;
 	public:
 		Button();
-		Button(const maths::vec2& size, const INString& text);
-		Button(float width, float height, const INString& text);
 
-		void OnRender() override;
+		void OnRenderStatic2D(graphics::Renderer2D& renderer) override;
+	private:
+		void Init();
 	};
 
 } }

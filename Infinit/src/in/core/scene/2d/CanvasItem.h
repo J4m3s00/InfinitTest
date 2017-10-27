@@ -6,10 +6,12 @@
 
 namespace in { namespace core {
 
-	typedef std::function<void()> PressedCallback;
-	typedef std::function<void()> MouseEnterCallback;
-	typedef std::function<void()> MouseLeaveCallback;
-	typedef std::function<void(float deltaX, float deltaY)> DraggedCallback;
+	class CanvasItem;
+
+	typedef std::function<void(CanvasItem*)> PressedCallback;
+	typedef std::function<void(CanvasItem*)> MouseEnterCallback;
+	typedef std::function<void(CanvasItem*)> MouseLeaveCallback;
+	typedef std::function<void(CanvasItem*, float deltaX, float deltaY)> DraggedCallback;
 
 
 	class CanvasItem : public Node
@@ -18,7 +20,7 @@ namespace in { namespace core {
 		INCLASS(CanvasItem, Node)
 
 	public:
-		maths::vec2 m_Size;
+		const maths::vec2* m_Size;
 	protected:
 		vector<PressedCallback> m_PressedCallbacks;
 		vector<MouseEnterCallback> m_MouseEnterCallbacks;
@@ -33,14 +35,14 @@ namespace in { namespace core {
 	public:
 		CanvasItem();
 		CanvasItem(const INString& name);
-		CanvasItem(const INString& name, const maths::vec2& size);
 
 		CanvasItem* AddPressedCallback(const PressedCallback& callback) { m_PressedCallbacks.push_back(callback); return this; }
 		CanvasItem* AddMouseEnterCallback(const MouseEnterCallback& callback) { m_MouseEnterCallbacks.push_back(callback); return this; }
 		CanvasItem* AddMouseLeaveCallback(const MouseLeaveCallback& callback) { m_MouseLeaveCallbacks.push_back(callback); return this; }
-		CanvasItem* AddDraggedCallback(const DraggedCallback& callback) { m_DraggedCallbacks.push_back(callback); return this; }
+		CanvasItem* AddDraggedCallback(DraggedCallback callback) { m_DraggedCallbacks.push_back(callback); return this; }
 
 		void OnUpdate() override;
+		void OnStart() override;
 	};
 
 } }

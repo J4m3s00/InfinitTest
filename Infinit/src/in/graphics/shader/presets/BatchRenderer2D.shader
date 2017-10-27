@@ -43,7 +43,7 @@ void main()
 	if (fs_in.tid > 0.0)
 	{
 		int id = int(fs_in.tid + 0.5) - 1;
-		texColor = texture(textures[id], fs_in.uv);
+		texColor = texture(textures[id], fs_in.uv) * fs_in.color;
 	}
 	gl_FragColor = texColor;
 }
